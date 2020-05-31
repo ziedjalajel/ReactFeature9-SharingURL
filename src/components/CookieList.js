@@ -11,13 +11,12 @@ const CookieList = (props) => {
   const [query, setQuery] = useState("");
 
   const cookieList = props.cookies
-    .filter((cookie) => cookie.name.includes(query))
+    .filter((cookie) => cookie.name.toLowerCase().includes(query.toLowerCase()))
     .map((cookie) => (
       <CookieItem
         cookie={cookie}
         key={cookie.id}
         deleteCookie={props.deleteCookie}
-        selectCookie={props.selectCookie}
       />
     ));
 
