@@ -1,14 +1,14 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import logo from "../logo.svg";
+
 // Styling
+import logo from "../logo.png";
 import { Nav, ThemeButton, Logo, NavItem } from "../styles";
 
 const NavBar = (props) => {
   return (
     <Nav>
       <Logo to="/">
-        <img src={logo} />
+        <img src={logo} alt="logo" />
       </Logo>
       <div>
         <NavItem to="/cookies">Cookies</NavItem>

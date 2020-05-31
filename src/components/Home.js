@@ -1,4 +1,6 @@
 import React from "react";
+
+// Styling
 import { Description, ShopImage, Title } from "../styles";
 
 const Home = () => {

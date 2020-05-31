@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ThemeProvider } from "styled-components";
 import { Route, Switch } from "react-router";
 import { useHistory } from "react-router-dom";
 
@@ -14,6 +13,7 @@ import cookies from "./cookies";
 
 // Styling
 import { GlobalStyle } from "./styles";
+import { ThemeProvider } from "styled-components";
 
 const theme = {
   light: {

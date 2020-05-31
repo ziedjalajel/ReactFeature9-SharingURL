@@ -58,10 +58,8 @@ export const ListWrapper = styled.div`
 `;
 
 export const Logo = styled(Link)`
-  padding: 1.25em;
-
   img {
-    width: 50px;
+    width: 8rem;
   }
 `;
 
