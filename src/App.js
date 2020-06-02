@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Components
 import CookieDetail from "./components/CookieDetail";
 import CookieList from "./components/CookieList";
 import Home from "./components/Home";
-import NavBar from "./components/NavBar";
 
 // Data
 import cookies from "./cookies";
 
 // Styling
-import { GlobalStyle } from "./styles";
+import { GlobalStyle, ThemeButton } from "./styles";
 import { ThemeProvider } from "styled-components";
 
 const theme = {
@@ -48,7 +47,15 @@ function App() {
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
-      <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
+      <Link to="/" style={{ margin: 10 }}>
+        Home
+      </Link>
+      <Link to="/cookies" style={{ margin: 10 }}>
+        Cookies
+      </Link>
+      <ThemeButton onClick={toggleTheme}>
+        {currentTheme === "light" ? "Dark" : "Light"} Mode
+      </ThemeButton>
       <Switch>
         <Route exact path="/">
           <Home />
