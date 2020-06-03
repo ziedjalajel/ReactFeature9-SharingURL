@@ -12,17 +12,17 @@ const CookieWrapper = styled.div`
     text-align: center;
 
     &.cookie-price {
-      color: ${props => props.theme.pink};
+      color: ${(props) => props.theme.pink};
     }
 
     &.cookie-delete {
-      color: ${props => props.theme.red};
+      color: ${(props) => props.theme.red};
     }
   }
 `;
 
 const DeleteButton = styled.p`
-  color: ${props => props.theme.red};
+  color: ${(props) => props.theme.red};
 `;
 
 const Description = styled.h4`
@@ -47,8 +47,8 @@ const DetailWrapper = styled.div`
 
 const GlobalStyle = createGlobalStyle`
   body {
-    color: ${props => props.theme.mainColor};
-    background-color: ${props => props.theme.backgroundColor}
+    color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.backgroundColor}
   }
 `;
 
@@ -60,10 +60,8 @@ const ListWrapper = styled.div`
 
 const Search = styled.input`
   padding: 0.5rem;
-  margin-top: 10px;
+  margin: 1rem auto;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   width: 40%;
 `;
 
@@ -72,8 +70,8 @@ const ThemeButton = styled.button`
   margin: 1.25em;
   padding: 0.25em 1em;
   border-radius: 3px;
-  background-color: ${props => props.theme.mainColor};
-  color: ${props => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.backgroundColor};
 `;
 
 const Title = styled.h1`
@@ -97,5 +95,5 @@ export {
   Search,
   Title,
   ShopImage,
-  ThemeButton
+  ThemeButton,
 };
