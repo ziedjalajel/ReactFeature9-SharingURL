@@ -282,37 +282,34 @@ const cookie = props.cookies.find((cookie) => cookie.id === +cookieId);
 
 2. We need to disable that, to do that we will use a method that `prevents` the default action when clicking on the delete button, which in this case is navigating to detail.
 
-3. This method comes in the `event` object of `onClick`, so we will pass it as an argument to `deleteCookie`:
+3. This method comes in the `event` object of `onClick`, so we will pass it as an argument to `handleDelete` in `DeleteButton`:
 
 ```jsx
-<DeleteButton onClick={(event) => props.deleteCookie(event, cookie.id)}>
+<DeleteButtonStyled onClick={(event) => handleDelete(event)}>
   Delete
-</DeleteButton>
+</DeleteButtonStyled>
 ```
 
-4. In `App`, we will pass `event`, and call `preventDefault` method at the beginning of the function:
+4. We will add `event` to `handleDelete`'s arguments, and call `preventDefault` method at the beginning of the function:
 
 ```javascript
-const deleteCookie = (event, cookieId) => {
+const deleteCookie = (event) => {
   event.preventDefault();
-  const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
-  setCookies(updatedCookies);
+  props.deleteCookie(props.cookieId);
 };
 ```
 
 5. Voila! It's working!
 
-6. Let's fix it in `CookieDetail` too:
+6. What's cool about `event` is that it's passed automatically to our event handler method, so we can cleanup our code and try it out
 
 ```jsx
-<DeleteButton onClick={(event) => props.deleteCookie(event, cookie.id)}>
-  Delete
-</DeleteButton>
+<DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
 ```
 
-7. We still have a problem, when we delete a cookie in the detail page we need to move back to `/cookies`. To do that we need to fix `deleteCookie`.
+1. We still have a problem, when we delete a cookie in the detail page we need to move back to `/cookies`.
 
-8. In `deleteCookie`, we need to go to `/` after deleting the cookie. We need some kind of routing method. We can find many different methods in the hook `useHistory`. Let's import it:
+2. In `handleDelete`, we need to go to `/` after deleting the cookie. We need some kind of routing method. We can find many different methods in the hook `useHistory`. Let's import it:
 
 ```javascript
 import { useHistory } from "react-router-dom";
@@ -321,9 +318,7 @@ import { useHistory } from "react-router-dom";
 9. `useHistory` returns an object that has different methods:
 
 ```javascript
-function App() {
-  const [currentTheme, setCurrentTheme] = useState("light");
-  const [_cookies, setCookies] = useState(cookies);
+const DeleteButton = (props) => {
   const history = useHistory();
 ```
 
@@ -332,8 +327,7 @@ function App() {
 ```javascript
 const deleteCookie = (event, cookieId) => {
   event.preventDefault();
-  const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
-  setCookies(updatedCookies);
+  props.deleteCookie(props.cookieId);
   history.push("/cookies");
 };
 ```
