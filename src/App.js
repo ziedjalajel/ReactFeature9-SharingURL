@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Components
 import CookieDetail from "./components/CookieDetail";
@@ -32,13 +32,10 @@ const theme = {
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
   const [_cookies, setCookies] = useState(cookies);
-  const history = useHistory();
 
-  const deleteCookie = (event, cookieId) => {
-    event.preventDefault();
+  const deleteCookie = (cookieId) => {
     const updatedCookies = _cookies.filter((cookie) => cookie.id !== +cookieId);
     setCookies(updatedCookies);
-    history.push("/cookies");
   };
 
   const toggleTheme = () =>
