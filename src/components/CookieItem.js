@@ -1,9 +1,12 @@
 import React from "react";
 
-// Styling
-import { CookieWrapper, DeleteButton } from "../styles";
+// Components
+import DeleteButton from "./buttons/DeleteButton";
 
-const CookieItem = props => {
+// Styling
+import { CookieWrapper } from "../styles";
+
+const CookieItem = (props) => {
   const cookie = props.cookie;
 
   return (
@@ -15,9 +18,7 @@ const CookieItem = props => {
       />
       <p>{cookie.name}</p>
       <p className="cookie-price">{cookie.price} KD</p>
-      <DeleteButton onClick={() => props.deleteCookie(cookie.id)}>
-        Delete
-      </DeleteButton>
+      <DeleteButton cookieId={cookie.id} deleteCookie={props.deleteCookie} />
     </CookieWrapper>
   );
 };
