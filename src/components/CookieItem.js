@@ -14,10 +14,10 @@ const CookieItem = (props) => {
     <CookieWrapper>
       <Link to={`/cookies/${cookie.id}`}>
         <img alt={cookie.name} src={cookie.image} />
-        <p>{cookie.name}</p>
-        <p className="cookie-price">{cookie.price} KD</p>
-        <DeleteButton cookieId={cookie.id} deleteCookie={props.deleteCookie} />
       </Link>
+      <p>{cookie.name}</p>
+      <p className="cookie-price">{cookie.price} KD</p>
+      <DeleteButton cookieId={cookie.id} deleteCookie={props.deleteCookie} />
     </CookieWrapper>
   );
 };

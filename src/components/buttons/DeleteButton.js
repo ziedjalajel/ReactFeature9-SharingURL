@@ -7,8 +7,7 @@ import { DeleteButtonStyled } from "../../styles";
 const DeleteButton = (props) => {
   const history = useHistory();
 
-  const handleDelete = (event) => {
-    event.preventDefault();
+  const handleDelete = () => {
     props.deleteCookie(props.cookieId);
     history.push("/cookies");
   };
