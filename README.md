@@ -208,10 +208,10 @@ import { Link } from "react-router-dom";
 <CookieDetail cookies={_cookies} deleteCookie={deleteCookie} />
 ```
 
-2. In `CookieDetail`, we will `find` the cookie according to the ID of the cookie we clicked on. For now we're only looking for the cookie with ID 1.
+2. In `CookieDetail`, we will `find` the cookie according to the ID of the cookie we clicked on. But, for now we're only looking for the cookie with ID 1 which is the first element in our `cookies` array.
 
 ```javascript
-const cookie = props.cookies.find((cookie) => cookie.id === 1);
+const cookie = props.cookies[0];
 ```
 
 3. Now, let's create a route for `CookieDetail` for the cookie with ID #1. As agreed, we'll put it above `/cookies`.
@@ -261,45 +261,18 @@ const CookieDetail = (props) => {
 
 ```
 
-9. Let's de-structure it:
+9. Let's use `cookieId` to `find` our cookie:
 
 ```javascript
-const { cookieId } = useParams();
+const cookieId = useParams().cookieId;
+const cookie = props.cookies.find((cookie) => cookie.id === cookieId);
 ```
 
-10. Let's use `cookieId` to `find` our cookie:
+10. It didn't work! That's because `cookieId` is a string, and `cookie.id` is an integer. To turn `cookieId` to an integer we can add a `+` before it
 
 ```javascript
-const { cookieId } = useParams();
+const cookieId = useParams().cookieId;
 const cookie = props.cookies.find((cookie) => cookie.id === +cookieId);
 ```
 
-11. It's working! Now we can delete `selectCookie` from all our components.
-
-## Step 7: History
-
-1. We have a problem, when we delete a cookie in the detail page we need to move back to `/cookies`.
-
-2. In `handleDelete`, we need to go to `/` after deleting the cookie. We need some kind of routing method. We can find many different methods in the hook `useHistory`. Let's import it:
-
-```javascript
-import { useHistory } from "react-router-dom";
-```
-
-3. `useHistory` returns an object that has different methods:
-
-```javascript
-const DeleteButton = (props) => {
-  const history = useHistory();
-```
-
-4. The method that takes us from one route to another is called `push`, and you pass the route that you want to render:
-
-```javascript
-const deleteCookie = (cookieId) => {
-  props.deleteCookie(props.cookieId);
-  history.push("/cookies");
-};
-```
-
-5. Let's try it again.
+11. It's working! Now we can delete `selectCookie` from all our components. Yaaay!
