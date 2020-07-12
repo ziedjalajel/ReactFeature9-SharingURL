@@ -255,5 +255,3 @@ const cookie = props.cookies.find((cookie) => cookie.id === cookieId);
 const cookieId = useParams().cookieId;
 const cookie = props.cookies.find((cookie) => cookie.id === +cookieId);
 ```
-
-11. It's working! Now we can delete `selectCookie` from all our components. Yaaay!
