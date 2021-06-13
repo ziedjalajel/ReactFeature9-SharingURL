@@ -1,12 +1,22 @@
 
 import {useState} from "react"
 import {ProductFormDiv} from "../styles"
-import {addCookie} from "../store/actions"
+import {addCookie,updateProduct} from "../store/actions"
 import {useDispatch} from "react-redux"
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 const AddCookie =()=>{
-    const [cookie,setCookie]=useState()
+    const productSlug = useParams().productSlug
+    const products = useSelector(state=>state.products)
+    const updatedProduct = products.find((p)=>p.slug===productSlug)
+    const [cookie,setCookie]=useState(updatedProduct ??{
+            name:'',
+            price:"",
+            description:"",
+            image:""
+        })
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -16,7 +26,8 @@ const AddCookie =()=>{
     }
     const handleSubmit = (event) => {
         event.preventDefault() 
-        dispatch(addCookie(cookie))
+        if (updatedProduct) dispatch(updateProduct(cookie))
+        else dispatch(addCookie(cookie))
         history.push("/items")
     }
     return (
@@ -24,27 +35,31 @@ const AddCookie =()=>{
             
         <form onSubmit={handleSubmit}>
         <ProductFormDiv>
-            <input 
+            <input
+            value={cookie.name} 
             onChange={handleChange} 
             type="text"
             name="name" 
             placeholder="enter cookie name"/>
-            <input 
+            <input
+            value={cookie.price} 
             onChange={handleChange} 
             type="number"
             name="price" 
             placeholder="enter cookie price"/>
-            <input 
+            <input
+            value={cookie.description} 
             onChange={handleChange} 
             type="text"
             name="description" 
             placeholder="enter cookie description"/>
-            <input 
+            <input
+            value={cookie.image} 
             onChange={handleChange} 
             type="text"
             name="image" 
             placeholder="paste image address here"/>
-            <button type="submit">Submit</button>
+            <button type="submit">{updatedProduct ? "Update" : "Submit"}</button>
             </ProductFormDiv>
         </form>
         

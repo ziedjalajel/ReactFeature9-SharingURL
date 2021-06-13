@@ -6,6 +6,7 @@ import { useParams, Redirect, Link } from "react-router-dom";
 import {useSelector} from "react-redux"
 import {deleteProduct} from "../store/actions"
 import {useDispatch} from "react-redux"
+import { AiTwotoneEdit } from "react-icons/ai";
 
 const ProductDetail = (props) => {
  const productSlug = useParams().productSlug
@@ -23,7 +24,9 @@ const ProductDetail = (props) => {
       <p>{product.description}</p>
       <p>{product.price} KD</p>
       <DeleteButton  deleteProduct={()=>dispatch(deleteProduct(product.id))}/>
-      
+      <Link to={`/items/${product.slug}/edit`}>
+      <AiTwotoneEdit size="1em"/>
+      </Link>
     </DetailWrapper>
   );
 };

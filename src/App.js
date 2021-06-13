@@ -54,7 +54,7 @@ function App() {
       <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
       
       <Switch>
-      <Route path="/items/new">
+      <Route path={["/items/new","/items/:productSlug/edit"]}>
         <ProductForm/>
       </Route>
       <Route path="/items/:productSlug">
