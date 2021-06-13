@@ -1,21 +1,19 @@
 // Styling
-import {
-  Description,
-  GlobalStyle,
-  ShopImage,
-  ThemeButton,
-  Title,
-} from "./styles";
+import { GlobalStyle,} from "./styles";
 import React, { useState } from "react";
 
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
+
 // Components
 import ProductDetail from "./components/ProductDetail";
 import ProductList from "./components/ProductList";
 import { ThemeProvider } from "styled-components";
 // Data
 import products from "./products";
+import { Route,Switch } from "react-router";
+import ProductForm from "./components/ProductForm"
+
 
 const theme = {
   light: {
@@ -34,7 +32,6 @@ const theme = {
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
-  const [product, setProduct] = useState(null);
   const [_products, setProducts] = useState(products);
 
   const deleteProduct = (productId) => {
@@ -42,40 +39,35 @@ function App() {
       (product) => product.id !== +productId
     );
     setProducts(updatedProducts);
-    setProduct(null);
   };
 
-  const selectProduct = (productId) => {
-    const selectedProduct = products.find(
-      (product) => product.id === productId
-    );
-    setProduct(selectedProduct);
-  };
+
 
   const toggleTheme = () =>
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
 
-  const setView = () =>
-    product ? (
-      <ProductDetail
-        product={product}
-        deleteProduct={deleteProduct}
-        selectProduct={selectProduct}
-      />
-    ) : (
-      <ProductList
-        products={_products}
-        deleteProduct={deleteProduct}
-        selectProduct={selectProduct}
-      />
-    );
-
+ 
   return (
     <ThemeProvider theme={theme[currentTheme]}>
       <GlobalStyle />
+      
       <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
-      <Home />
-      {setView()}
+      
+      <Switch>
+      <Route path="/items/new">
+        <ProductForm/>
+      </Route>
+      <Route path="/items/:productSlug">
+        <ProductDetail/>
+      </Route>
+      <Route path="/items">
+      <ProductList/>
+      </Route>
+      <Route exact path="/">
+        <Home />
+      </Route>
+      </Switch>
+      
     </ThemeProvider>
   );
 }

@@ -1,14 +1,19 @@
 // Styling
-import { ListWrapper } from "../styles";
+import { ListWrapper, NavItem } from "../styles";
 // Components
 import ProductItem from "./ProductItem";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
+import { Route,Switch } from "react-router";
+import {useSelector} from "react-redux"
+
+
 
 const ProductList = (props) => {
   const [query, setQuery] = useState("");
+  const products = useSelector((state)=>state.products)
 
-  const productList = props.products
+  const productList = products
     .filter((product) =>
       product.name.toLowerCase().includes(query.toLowerCase())
     )
@@ -16,8 +21,6 @@ const ProductList = (props) => {
       <ProductItem
         product={product}
         key={product.id}
-        deleteProduct={props.deleteProduct}
-        selectProduct={props.selectProduct}
       />
     ));
 

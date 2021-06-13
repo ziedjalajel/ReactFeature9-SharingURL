@@ -2,21 +2,28 @@
 import DeleteButton from "./buttons/DeleteButton";
 // Styling
 import { DetailWrapper } from "../styles";
+import { useParams, Redirect, Link } from "react-router-dom";
+import {useSelector} from "react-redux"
+import {deleteProduct} from "../store/actions"
+import {useDispatch} from "react-redux"
 
 const ProductDetail = (props) => {
-  const product = props.product;
-
+ const productSlug = useParams().productSlug
+ const products = useSelector((state)=>state.products)
+ const dispatch = useDispatch()
+ const product = products.find((p)=>p.slug===productSlug)
+  if(!product) return <Redirect to="/"/>
   return (
     <DetailWrapper>
-      <p onClick={props.selectProduct}>Back to Products</p>
-      <h1>{product.name}</h1>
+      
+      
+      <Link to={`/items`}>Back to Products</Link>
+      {/* <Link to={`/items/${product.slug}`}> <h1>{product.name}</h1></Lin> */}
       <img src={product.image} alt={product.name} />
       <p>{product.description}</p>
       <p>{product.price} KD</p>
-      <DeleteButton
-        productId={product.id}
-        deleteProduct={props.deleteProduct}
-      />
+      <DeleteButton  deleteProduct={()=>dispatch(deleteProduct(product.id))}/>
+      
     </DetailWrapper>
   );
 };
